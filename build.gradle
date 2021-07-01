@@ -3,13 +3,15 @@ plugins {
     id 'maven-publish'
     id 'org.jetbrains.kotlin.jvm' version '1.3.72'
     id 'io.codearte.nexus-staging' version "0.22.0"
+    id 'io.github.gradle-nexus.publish-plugin' version '1.0.0'
 }
 
-group 'com.redhat.devtools.intellij.commonUiTestLibrary'
+group 'com.redhat.devtools.intellij'
 version projectVersion
 
 apply plugin: 'maven'
 apply plugin: 'io.codearte.nexus-staging'
+apply plugin: 'io.github.gradle-nexus.publish-plugin'
 
 def remoteRobotVersion = '0.11.2'
 def fixturesVersion = '1.1.18'
@@ -32,12 +34,17 @@ dependencies {
     api "com.intellij.remoterobot:remote-fixtures:$fixturesVersion"
 }
 
+java {
+    withSourcesJar()
+    withJavadocJar()
+}
+
 test {
     useJUnitPlatform()
 }
 
 nexusStaging {
-    serverUrl = 'https://repository.jboss.org/nexus/service/local/'
+    serverUrl = 'https://repository.jboss.org/nexus/service/local/staging/deploy/maven2/'
     username = nexusUser
     password = nexusPassword
     packageGroup = 'JBoss Releases Staging Profile'
@@ -75,13 +82,25 @@ publishing {
     }
     repositories {
         maven {
-            def releasesRepoUrl = "https://repository.jboss.org/nexus/service/local/staging/deploy/maven2"
+            def releasesRepoUrl = "https://repository.jboss.org/nexus/service/local/staging/deploy/maven2/"
             def snapshotsRepoUrl = "https://repository.jboss.org/nexus/content/repositories/snapshots/"
             url = version.endsWith('SNAPSHOT') ? snapshotsRepoUrl : releasesRepoUrl
             credentials {
                 username = nexusUser
                 password = nexusPassword
             }
+        }
+    }
+}
+
+nexusPublishing {
+    repositories {
+        myNexus {
+            nexusUrl = uri("https://repository.jboss.org/nexus/service/local/staging/deploy/maven2/")
+            snapshotRepositoryUrl = uri("https://repository.jboss.org/nexus/content/repositories/snapshots/")
+            username = nexusUser
+            password = nexusPassword
+            packageGroup = 'JBoss Releases Staging Profile'
         }
     }
 }
