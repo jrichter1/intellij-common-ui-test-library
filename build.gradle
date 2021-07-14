@@ -87,11 +87,11 @@ publishing {
 nexusPublishing {
     repositories {
         myNexus {
-            nexusUrl = uri("https://repository.jboss.org/nexus/service/local/staging/")
+            nexusUrl = uri("https://repository.jboss.org/nexus/service/local/staging/deploy/maven2/")
             snapshotRepositoryUrl = uri("https://repository.jboss.org/nexus/content/repositories/snapshots/")
             username = nexusUser
             password = nexusPassword
-            packageGroup = 'JBoss Releases Staging Profile'
+            stagingProfileId = 'JBoss Releases Staging Profile'
         }
     }
 }
