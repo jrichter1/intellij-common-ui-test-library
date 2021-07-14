@@ -2,7 +2,6 @@ plugins {
     id 'java-library'
     id 'maven-publish'
     id 'org.jetbrains.kotlin.jvm' version '1.3.72'
-    id 'io.codearte.nexus-staging' version "0.22.0"
     id 'io.github.gradle-nexus.publish-plugin' version '1.0.0'
 }
 
@@ -10,7 +9,6 @@ group 'com.redhat.devtools.intellij'
 version projectVersion
 
 apply plugin: 'maven'
-apply plugin: 'io.codearte.nexus-staging'
 apply plugin: 'io.github.gradle-nexus.publish-plugin'
 
 def remoteRobotVersion = '0.11.2'
@@ -41,13 +39,6 @@ java {
 
 test {
     useJUnitPlatform()
-}
-
-nexusStaging {
-    serverUrl = 'https://repository.jboss.org/nexus/service/local/staging/deploy/maven2/'
-    username = nexusUser
-    password = nexusPassword
-    packageGroup = 'JBoss Releases Staging Profile'
 }
 
 publishing {
@@ -96,7 +87,7 @@ publishing {
 nexusPublishing {
     repositories {
         myNexus {
-            nexusUrl = uri("https://repository.jboss.org/nexus/service/local/staging/deploy/maven2/")
+            nexusUrl = uri("https://repository.jboss.org/nexus/service/local/staging/")
             snapshotRepositoryUrl = uri("https://repository.jboss.org/nexus/content/repositories/snapshots/")
             username = nexusUser
             password = nexusPassword
