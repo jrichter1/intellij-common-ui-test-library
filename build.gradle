@@ -91,7 +91,7 @@ nexusPublishing {
             snapshotRepositoryUrl = uri("https://repository.jboss.org/nexus/content/repositories/snapshots/")
             username = nexusUser
             password = nexusPassword
-            stagingProfileId = 'JBoss Releases Staging Profile'
+            stagingProfileName = 'JBoss Releases Staging Profile'
             packageGroup = 'JBoss Releases Staging Profile'
         }
     }
