@@ -19,6 +19,7 @@ node('rhel7') {
             if (isSnapshot) {
                 sh "./gradlew publish -PnexusUser=${USER} -PnexusPassword=${PASSWORD}"
             } else {
+                sh "./gradlew retrieveStagingProfile"
                 sh "./gradlew publish closeAndReleaseStagingRepository -PnexusUser=${USER} -PnexusPassword=${PASSWORD}"
             }
         }
