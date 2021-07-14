@@ -92,6 +92,7 @@ nexusPublishing {
             username = nexusUser
             password = nexusPassword
             stagingProfileId = 'JBoss Releases Staging Profile'
+            packageGroup = 'JBoss Releases Staging Profile'
         }
     }
 }
