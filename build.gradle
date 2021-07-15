@@ -38,9 +38,9 @@ test {
 
 nexusPublishing {
     packageGroup = 'JBoss Releases Staging Profile'
-    stagingProfileId = '2161b7b8da0080'
     repositories {
         jbossNexus {
+            stagingProfileId = '2161b7b8da0080'
             username = nexusUser
             password = nexusPassword
             nexusUrl.set(uri('https://repository.jboss.org/nexus/service/local/'))
