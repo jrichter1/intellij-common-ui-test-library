@@ -1,9 +1,9 @@
 #!/usr/bin/env groovy
 
-node('rhel7') {
+node('rhel8') {
     stage('Checkout repo') {
         deleteDir()
-        git url: 'https://github.com/redhat-developer/intellij-common-ui-test-library',
+        git url: 'https://github.com/jrichter1/intellij-common-ui-test-library',
                 branch: "${sha1}"
     }
 
@@ -19,7 +19,7 @@ node('rhel7') {
             if (isSnapshot) {
                 sh "./gradlew publish -PnexusUser=${USER} -PnexusPassword=${PASSWORD}"
             } else {
-                sh "./gradlew publish closeAndReleaseRepository -PnexusUser=${USER} -PnexusPassword=${PASSWORD}"
+                sh "./gradlew publish closeAndReleaseJbossNexusStagingRepository -PnexusUser=${USER} -PnexusPassword=${PASSWORD}"
             }
         }
     }
